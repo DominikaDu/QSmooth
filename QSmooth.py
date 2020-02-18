@@ -102,8 +102,8 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
 
 def smooth(x,y,y_err,mask=None):
     # Smooths raw input spectral data given by (x,y) and errors y_err according to procedure outlined in Appendix B
-    # of Durovcikova et al. 2019 (https://arxiv.org/abs/1912.01050) for a given value of calibration redshift.
-    # In this process, a mask can be used to reject some data from the spec file.
+    # of Durovcikova et al. 2019 (https://arxiv.org/abs/1912.01050).
+    # In this process, a mask can be used to reject some data points from the smoothing procedure.
 
     if len(mask)>0:
         x = x[mask]
@@ -130,4 +130,4 @@ def smooth(x,y,y_err,mask=None):
 	
 	#4. smooth the inlier data points
 	[xx,yy] = running_median(x[inlier_mask],y[inlier_mask],bin_size=20,shuffle=10,Lya=True)
-	return(np.array(xx),np.array(yy))
+	return np.array(xx), np.array(yy)
