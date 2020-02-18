@@ -1,3 +1,16 @@
+##########################################
+
+# Author: Dominika Durovcikova (University of Oxford)
+# Correspondence: dominika.durovcikova@gmail.com
+
+# If used, please cite:
+
+# Ďurovčíková, D., Katz, H., Bosman, S.E.I., Davies, F.B., Devriendt, J. and Slyz, A., 2019.
+# Reionization history constraints from neural network based predictions of high-redshift quasar continua.
+# arXiv preprint arXiv:1912.01050.
+
+##########################################
+
 import pyfits as pf
 from scipy import interpolate
 import pandas as pd
