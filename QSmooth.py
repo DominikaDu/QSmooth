@@ -33,7 +33,8 @@ def mask_SDSS(filename,path=None):
                 mask[i] = 1
             if np.isclose(data['loglam'][i],3.8601,atol=0.002) == True:
                 mask[i] = 1
-            mask_bool = mask==0
+    mask_bool = mask==0
+    spec.close()
     return mask_bool
 
 def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
@@ -87,7 +88,7 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
     return np.array(xvals),np.array(yvals)
 
 def smooth(x,y,y_err,mask=None):
-	# Smooths raw input spectral data given by (x,y) and errors y_err according to procedure outlined in Appendix B
+    # Smooths raw input spectral data given by (x,y) and errors y_err according to procedure outlined in Appendix B
     # of Durovcikova et al. 2019 (https://arxiv.org/abs/1912.01050) for a given value of calibration redshift.
     # In this process, a mask can be used to reject some data from the spec file.
 
