@@ -5,7 +5,7 @@ import numpy as np
 from scipy.signal import find_peaks
 from sklearn import linear_model
 import matplotlib.pyplot as plt
-from QSmooth import open_fits, mask_SDSS, smooth
+from QSmooth import open_calibrate_fits, mask_SDSS, smooth
 
 # Adjust the filename and path here:
 filename = 'spec-5488-56013-0860.fits'
@@ -13,7 +13,7 @@ path = 'example_fits/'
 
 ###################################
 
-[loglam, flux, err] = open_fits(filename=filename,path=path)
+[loglam, flux, err] = open_calibrate_fits(filename=filename,path=path)
 mask = mask_SDSS(filename=filename,path=path)
 [loglam_smooth, flux_smooth] = smooth(loglam,flux,err,mask=mask)
 
@@ -24,8 +24,8 @@ plt.rc('font',**font)
 fig, axs = plt.subplots(2,1,sharey=True,figsize=(6.97,3.31))
 axs[0].plot(10**loglam,flux,c=(0.25,0.25,0.25),label=r'${\rm \ SDSS\ J151727.68+133358.60\ raw\ data}$')
 axs[1].plot(10**loglam,flux,c=(0.25,0.25,0.25))
-axs[0].plot(10**loglam,err,c='r',linewidth=1,label=r'${\rm \ flux\ errors}$')
-axs[1].plot(10**loglam,err,c='r',linewidth=1)
+axs[0].plot(10**loglam,1/err,c='r',linewidth=1,label=r'${\rm \ flux\ errors}$')
+axs[1].plot(10**loglam,1/err,c='r',linewidth=1)
 axs[0].plot(10**loglam_smooth,flux_smooth,color='c',label=r'${\rm QSmooth\ fit}$')
 axs[1].plot(10**loglam_smooth,flux_smooth,color='c')
 axs[0].set_ylabel(r'${\rm flux\ [erg\ s}$'+r'$^{-1} {\rm cm} ^{-2}\mathrm{\AA}$'+r'${\rm ]}$')
