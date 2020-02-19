@@ -1,6 +1,6 @@
 # QSmooth
 
-QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Durovcikova and implemented in [Durovcikova et al. 2019](https://arxiv.org/abs/1912.01050).
+QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurovčíková and implemented in [Ďurovčíková et al. 2019](https://arxiv.org/abs/1912.01050).
 
 ## Requirements:
 
@@ -34,4 +34,4 @@ to produce an output image like the following:
 
 ## Contact
 
-Please contact Dominika Durovcikova at dominika.durovcikova@gmail.com in case of questions/issues.
+Please contact Dominika Ďurovčíková at dominika.durovcikova@gmail.com in case of questions/issues.
