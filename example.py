@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 from scipy.signal import find_peaks
 from sklearn import linear_model
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from QSmooth import open_calibrate_fits, mask_SDSS, smooth
 

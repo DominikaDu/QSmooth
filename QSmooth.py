@@ -19,8 +19,9 @@ import numpy as np
 from scipy.signal import find_peaks
 from sklearn import linear_model
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
+
 
 def open_calibrate_fits(filename,path):
     hdu_raw = pf.open(str(path)+str(filename))
@@ -70,11 +71,11 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
         while True:
             if j+bin_size < len(datx):
                 if (datx[j]>np.log10(1170)) & (datx[j]<np.log10(1270)): # if near Lya
-                    j += bin_size/2 +shuffle/5
-                    while datx[j+bin_size/5]<=np.log10(1270):
-                        bin_x = np.mean(datx[j:j+bin_size/5])
-                        bin_y = np.median(daty[j:j+bin_size/5])
-                        j += shuffle/5
+                    j += np.int(bin_size/2) +np.int(shuffle/5)
+                    while datx[j+np.int(bin_size/5)]<=np.log10(1270):
+                        bin_x = np.mean(datx[j:j+np.int(bin_size/5)])
+                        bin_y = np.median(daty[j:j+np.int(bin_size/5)])
+                        j += np.int(shuffle/5)
                         xvals.append(bin_x)
                         yvals.append(bin_y)
                 else:
@@ -117,24 +118,24 @@ def smooth(x,y,y_err,mask=None):
         y = y[mask]
         y_err = y_err[mask]
 	
-	# 1. Compute upper envelope:
-	[x_bor,y_bor] = running_median(x,y,bin_size=50,shuffle=10)
-	border = interpolate.interp1d(x_bor,y_bor,bounds_error=False,fill_value='extrapolate')
-	env_mask, _ = find_peaks(y,height=(border(x),None))
-	x_env = x[env_mask]
-	env = y[env_mask]
-	f = interpolate.interp1d(x_env,env,bounds_error=False,fill_value='extrapolate')
-	# 2. Subtract the envelope from raw data points to linearize the data:
-	linear_y = y - f(x)
+    # 1. Compute upper envelope:
+    [x_bor,y_bor] = running_median(x,y,bin_size=50,shuffle=10)
+    border = interpolate.interp1d(x_bor,y_bor,bounds_error=False,fill_value='extrapolate')
+    env_mask, _ = find_peaks(y,height=(border(x),None))
+    x_env = x[env_mask]
+    env = y[env_mask]
+    f = interpolate.interp1d(x_env,env,bounds_error=False,fill_value='extrapolate')
+    # 2. Subtract the envelope from raw data points to linearize the data:
+    linear_y = y - f(x)
 	
 	# 3. Apply RANSAC to detect outlying pixels (absorption features) and mask them out.
 	# Note: we weigh the raw data points according to their errors.
-	mad = np.average(np.abs(np.median(linear_y)-linear_y),weights=np.divide(y_err,np.sum(y_err)))
-	ransac = linear_model.RANSACRegressor(random_state=0,loss='absolute_loss',residual_threshold=2.0*mad)
-	ransac.fit(x.reshape(len(x),1), linear_y,sample_weight=np.abs(y_err))
-	inlier_mask = ransac.inlier_mask_
-	outlier_mask = np.logical_not(inlier_mask)
+    mad = np.average(np.abs(np.median(linear_y)-linear_y),weights=np.divide(y_err,np.sum(y_err)))
+    ransac = linear_model.RANSACRegressor(random_state=0,loss='absolute_loss',residual_threshold=2.0*mad)
+    ransac.fit(x.reshape(len(x),1), linear_y,sample_weight=np.abs(y_err))
+    inlier_mask = ransac.inlier_mask_
+    outlier_mask = np.logical_not(inlier_mask)
 	
 	#4. smooth the inlier data points
-	[xx,yy] = running_median(x[inlier_mask],y[inlier_mask],bin_size=20,shuffle=10,Lya=True)
-	return np.array(xx), np.array(yy)
+    [xx,yy] = running_median(x[inlier_mask],y[inlier_mask],bin_size=20,shuffle=10,Lya=True)
+    return np.array(xx), np.array(yy)
