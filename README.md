@@ -1,6 +1,10 @@
 # QSmooth
 
-QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurovčíková and implemented in [Ďurovčíková et al. 2019](https://arxiv.org/abs/1912.01050).
+QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurovčíková and implemented in [Ďurovčíková et al. 2020](https://academic.oup.com/mnras/article-abstract/493/3/4256/5741730?redirectedFrom=fulltext).
+
+Please include the following citation if you use this code:
+
+Ďurovčíková, D., Katz, H., Bosman, S.E.I., Davies, F.B., Devriendt, J. and Slyz, A., 2020. Reionization history constraints from neural network based predictions of high-redshift quasar continua. Monthly Notices of the Royal Astronomical Society, Volume 493, Issue 3, April 2020, Pages 4256–4275.
 
 ## Requirements:
 
@@ -18,7 +22,7 @@ Here is a visualisation of the procedure:
 
 For SDSS quasars from a spec-PLATE-MJD-FIBER.fits file, we also provide a routine to mask out all sky lines listed in Table 30 of [Stoughton et al. (2002)](https://iopscience.iop.org/article/10.1086/324741/pdf) as well as all pixels that were flagged as highly uncertain by the SDSS pipelines.
 
-For a detailed account of the smoothing procedure, please refer to Appendix B in [Durovcikova et al. 2019](https://arxiv.org/abs/1912.01050).
+For a detailed account of the smoothing procedure, please refer to Appendix B in [Durovcikova et al. 2020](https://academic.oup.com/mnras/article-abstract/493/3/4256/5741730?redirectedFrom=fulltext).
 
 ## Example usage
 
