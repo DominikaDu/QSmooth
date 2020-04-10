@@ -6,7 +6,7 @@ QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurov
 
 Please find the list of all required Python packages in the "requirements.txt" file. In addition, a working Latex installation is required for the plotting.
 
-This code has been developed using Python 2.7.
+This code has been developed using Python 2.7. It has also been tested on Python 3.7.
 
 ## Description:
 
