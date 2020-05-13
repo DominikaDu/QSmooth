@@ -131,6 +131,6 @@ def smooth(x,y,y_err,mask=None):
     inlier_mask = ransac.inlier_mask_
     outlier_mask = np.logical_not(inlier_mask)
 	
-	#4. smooth the inlier data points
+    #4. smooth the inlier data points
     [xx,yy] = running_median(x[inlier_mask],y[inlier_mask],bin_size=20,shuffle=10,Lya=True)
     return np.array(xx), np.array(yy)
