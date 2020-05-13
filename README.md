@@ -1,6 +1,10 @@
 # QSmooth
 
+<<<<<<< HEAD
 QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurovčíková and implemented in [Ďurovčíková et al. 2020](https://arxiv.org/abs/1912.01050).
+=======
+QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurovčíková and implemented in [Ďurovčíková et al. 2020](https://academic.oup.com/mnras/article-abstract/493/3/4256/5741730?redirectedFrom=fulltext).
+>>>>>>> 6e14ca4b3c872da79bce39bb62e6316a55ac10a3
 
 Please include the following citation if you use this code:
 
@@ -10,7 +14,11 @@ Please include the following citation if you use this code:
 
 Please find the list of all required Python packages in the "requirements.txt" file. In addition, a working Latex installation is required for the plotting.
 
+<<<<<<< HEAD
 This code has been developed using Python 2.7 and tested with Python 3.7.
+=======
+This code has been developed using Python 2.7. It has also been tested on Python 3.7.
+>>>>>>> 6e14ca4b3c872da79bce39bb62e6316a55ac10a3
 
 ## Description:
 
@@ -22,7 +30,11 @@ Here is a visualisation of the procedure:
 
 For SDSS quasars from a spec-PLATE-MJD-FIBER.fits file, we also provide a routine to mask out all sky lines listed in Table 30 of [Stoughton et al. (2002)](https://iopscience.iop.org/article/10.1086/324741/pdf) as well as all pixels that were flagged as highly uncertain by the SDSS pipelines.
 
+<<<<<<< HEAD
 For a detailed account of the smoothing procedure, please refer to Appendix B in [Ďurovčíková et al. 2020](https://arxiv.org/abs/1912.01050).
+=======
+For a detailed account of the smoothing procedure, please refer to Appendix B in [Ďurovčíková et al. 2020](https://academic.oup.com/mnras/article-abstract/493/3/4256/5741730?redirectedFrom=fulltext).
+>>>>>>> 6e14ca4b3c872da79bce39bb62e6316a55ac10a3
 
 ## Example usage
 
