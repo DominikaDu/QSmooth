@@ -6,9 +6,9 @@
 
 # If used, please cite:
 
-# Ďurovčíková, D., Katz, H., Bosman, S.E.I., Davies, F.B., Devriendt, J. and Slyz, A., 2019.
-# Reionization history constraints from neural network based predictions of high-redshift quasar continua.
-# arXiv preprint arXiv:1912.01050.
+# Ďurovčíková, D. , Katz, H., Bosman, S.E.I., Davies, F.B., Devriendt, J., Slyz, A., 2019. Reionization history
+# constraints from neural network based predictions of high-redshift quasar continua. Monthly Notices of the Royal
+# Astronomical Society, Volume 493, Issue 3, April 2020, Pages 4256–4275.
 
 ##########################################
 
@@ -18,8 +18,6 @@ import pandas as pd
 import numpy as np
 from scipy.signal import find_peaks
 from sklearn import linear_model
-import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 
@@ -27,8 +25,8 @@ def open_calibrate_fits(filename,path):
     hdu_raw = pf.open(str(path)+str(filename))
     # Either calibrate to rest wavelengths based on redshift from a particular line, e.g. Mg-II
     # https://data.sdss.org/datamodel/files/BOSS_SPECTRO_REDUX/RUN2D/PLATE4/RUN1D/spZline.html
-	# loglam = hdu['loglam'] - np.log10(1+hdu_raw[3].data['LINEZ'][5])
-    # Or calibrate to rest wavelengths based on the redshift from the SDSS pipelines.
+    # # loglam = hdu['loglam'] - np.log10(1+hdu_raw[3].data['LINEZ'][5])
+    # # Or calibrate to rest wavelengths based on the redshift from the SDSS pipelines.
     loglam = hdu_raw[1].data['loglam'] - np.log10(1+hdu_raw[2].data['Z'])
     flux = hdu_raw[1].data['flux']
     err = hdu_raw[1].data['ivar']
@@ -71,13 +69,11 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
         while True:
             if j+bin_size < len(datx):
                 if (datx[j]>np.log10(1170)) & (datx[j]<np.log10(1270)): # if near Lya
-                    j += np.int(bin_size/2) +np.int(shuffle/5)
-                    while datx[j+np.int(bin_size/5)]<=np.log10(1270):
-                        bin_x = np.mean(datx[j:j+np.int(bin_size/5)])
-                        bin_y = np.median(daty[j:j+np.int(bin_size/5)])
-                        j += np.int(shuffle/5)
-                        xvals.append(bin_x)
-                        yvals.append(bin_y)
+                    bin_x = np.mean(datx[j:j+np.int(bin_size/5)])
+                    bin_y = np.median(daty[j:j+np.int(bin_size/5)])
+                    j += np.int(shuffle/5)
+                    xvals.append(bin_x)
+                    yvals.append(bin_y)
                 else:
                     bin_x = np.mean(datx[j:j+bin_size])
                     bin_y = np.median(daty[j:j+bin_size])
@@ -85,7 +81,7 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
                     xvals.append(bin_x)
                     yvals.append(bin_y)
             else:
-                shuffle = len(datx) - j
+                bin_size = len(datx) - j
                 bin_x = np.mean(datx[j:j+bin_size])
                 bin_y = np.median(daty[j:j+bin_size])
                 xvals.append(bin_x)
@@ -100,7 +96,7 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
                 xvals.append(bin_x)
                 yvals.append(bin_y)
             else:
-                shuffle = len(datx) - j
+                bin_size = len(datx) - j
                 bin_x = np.mean(datx[j:j+bin_size])
                 bin_y = np.median(daty[j:j+bin_size])
                 xvals.append(bin_x)
@@ -110,7 +106,7 @@ def running_median(datx,daty,bin_size=30,shuffle=5,Lya=False):
 
 def smooth(x,y,y_err,mask=None):
     # Smooths raw input spectral data given by (x,y) and errors y_err according to procedure outlined in Appendix B
-    # of Ďurovčíková et al. 2019 (https://arxiv.org/abs/1912.01050).
+    # of Ďurovčíková et al. 2020 (https://arxiv.org/abs/1912.01050).
     # In this process, a mask can be used to reject some data points from the smoothing procedure.
 
     if len(mask)>0:
@@ -127,12 +123,11 @@ def smooth(x,y,y_err,mask=None):
     f = interpolate.interp1d(x_env,env,bounds_error=False,fill_value='extrapolate')
     # 2. Subtract the envelope from raw data points to linearize the data:
     linear_y = y - f(x)
-	
-	# 3. Apply RANSAC to detect outlying pixels (absorption features) and mask them out.
-	# Note: we weigh the raw data points according to their errors.
+    # 3. Apply RANSAC to detect outlying pixels (absorption features) and mask them out.
+    # Note: we weigh the raw data points according to their errors.
     mad = np.average(np.abs(np.median(linear_y)-linear_y),weights=np.divide(y_err,np.sum(y_err)))
     ransac = linear_model.RANSACRegressor(random_state=0,loss='absolute_loss',residual_threshold=2.0*mad)
-    ransac.fit(x.reshape(len(x),1), linear_y,sample_weight=np.abs(y_err))
+    ransac.fit(x.reshape(len(x),1),linear_y,sample_weight=np.abs(y_err))
     inlier_mask = ransac.inlier_mask_
     outlier_mask = np.logical_not(inlier_mask)
 	

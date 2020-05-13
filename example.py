@@ -4,8 +4,6 @@ import pandas as pd
 import numpy as np
 from scipy.signal import find_peaks
 from sklearn import linear_model
-import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from QSmooth import open_calibrate_fits, mask_SDSS, smooth
 
@@ -41,3 +39,4 @@ axs[0].set_ylim(bottom=-5)
 axs[1].set_ylim(bottom=-5)
 axs[0].legend(frameon=False)
 plt.savefig('example_plots/SDSSJ151727.68+133358.60_example.png',bbox_inches='tight',dpi=400)
+plt.close()
