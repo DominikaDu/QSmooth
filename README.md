@@ -4,7 +4,7 @@ QSmooth is a smoothing algorithm for quasar spectra developed by Dominika Ďurov
 
 Please include the following citation if you use this code:
 
-Ďurovčíková, D., Katz, H., Bosman, S.E.I., Davies, F.B., Devriendt, J. and Slyz, A., 2020. Reionization history constraints from neural network based predictions of high-redshift quasar continua. Monthly Notices of the Royal Astronomical Society, Volume 493, Issue 3, April 2020, Pages 4256–4275.
+D. Ďurovčíková, H. Katz, S. E. I. Bosman, F. B. Davies, J. Devriendt, and A. Slyz, Monthly Notices of the Royal Astronomical Society 493, 4256 (2020).
 
 ## Requirements:
 
